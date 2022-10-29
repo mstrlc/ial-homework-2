@@ -169,8 +169,11 @@ void bst_replace_by_rightmost(bst_node_t *target, bst_node_t **tree)
 	target->key = current->key;
 	target->value = current->value;
 
+	// If rightmost node has left child, replace rightmost node with its left child
 	if (previous != NULL)
+	{
 		previous->right = NULL;
+	}
 
 	// If rightmost node has left child, move it to rightmost node's place
 	if (current->left)
@@ -250,20 +253,28 @@ void bst_delete(bst_node_t **tree, char key)
 		{
 			// Child was the left node of its parent
 			if (side == 'l')
+			{
 				previous->left = current->right;
+			}
 			// Child was the right node of its parent
 			else if (side == 'r')
+			{
 				previous->right = current->right;
+			}
 		}
 		// Node only has left child
-		if (current->right == NULL) 
+		if (current->right == NULL)
 		{
 			// Child was the left node of its parent
 			if (side == 'l')
+			{
 				previous->left = current->left;
+			}
 			// Child was the right node of its parent
 			else if (side == 'r')
+			{
 				previous->right = current->left;
+			}
 		}
 
 		free(current);
@@ -464,7 +475,7 @@ void bst_leftmost_postorder(bst_node_t *tree, stack_bst_t *to_visit,
 							stack_bool_t *first_visit)
 {
 	bst_node_t *current = tree;
-	
+
 	// Go through the tree until it is empty
 	while (current != NULL)
 	{
@@ -502,7 +513,6 @@ void bst_postorder(bst_node_t *tree)
 
 	// Call leftmost postorder
 	bst_leftmost_postorder(tree, stack_bst, stack_bool);
-
 
 	// Go through the tree until the stack is empty
 	bst_node_t *current = tree;
